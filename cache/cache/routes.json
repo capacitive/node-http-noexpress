@@ -1,1 +1,1 @@
-{"data":[{"requestMethod":"get","path":"/","methodName":"index"},{"requestMethod":"get","path":"/salut/:id","methodName":"surname"}]}
+{"data":[{"requestMethod":"get","path":"","methodName":"index"},{"requestMethod":"get","path":"/salut/:id","methodName":"surname"}]}

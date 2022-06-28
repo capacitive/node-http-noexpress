@@ -1,10 +1,14 @@
 import "reflect-metadata";
 import { RouteDefinition } from "./RouteDefinition";
 
-export const Get = (path: string): PropertyDecorator => {
+export const Get = (path?: string): PropertyDecorator => {
   return (target: Object, propertyKey: string | symbol): void => {
     if (!Reflect.hasMetadata("routes", target.constructor)) {
       Reflect.defineMetadata("routes", [], target.constructor);
+    }
+
+    if (path === undefined || path === null) {
+      path = "";
     }
 
     const routes = Reflect.getMetadata(

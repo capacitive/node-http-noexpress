@@ -17,7 +17,7 @@ export default class SerialController implements IController {
     return { message: message };
   }
 
-  @Get("/")
+  @Get()
   index = () => {
     ControllerAction.Send(
       this.res,

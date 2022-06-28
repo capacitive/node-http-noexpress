@@ -14,6 +14,7 @@ Start the http server:
 Some work to be done from the first iteration forward:
 
 - My best attempt at calculating Big O for the nested forEach in HTTPRouter is O(n^2) - not good!
+	- **In order to fix this, I plan to make a Route class that contains the combined controller/route metadata.  It will be the top-level entity that is iterated with no nested loop.**
 - Dependent on the size of the API, the HTTPRouter is dynamically processing a giant list of controllers (forEach) containing routes (nested forEach).  It's ideal to do this in parallel with a cancel token pattern, and/or generate cached route handlers.
 	- I added some basic caching using the persistent-cache npm package. Not the final solution, and it has the typical 'cold-start' slowness.  This cache, I suspect, will die when the server is rebooted.  Cold start: 10ms, thereafter: 4ms.  Not bad for trying to mitigate the O(n^2) forEach problem, but I bet I can do better..
 
