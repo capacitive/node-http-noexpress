@@ -6,34 +6,52 @@ import { IController } from "./IController";
 
 @Controller("/serial")
 export default class SerialController implements IController {
+
+	private res: ServerResponse;
+
+	constructor(res: ServerResponse) {
+		this.res = res;
+	}
+
   sendIndexInfo(message: string, val: number) {
     return { message: message };
   }
 
   @Get("/")
-  index = (res: ServerResponse) => {
+  index = () => {
     //console.log(this.res);
     ControllerAction.Send(
-      res,
+      this.res,
       this.sendIndexInfo,
-      "This is the index of the serial controller.",
-      0
+      "This is the index of the serial controller."
     );
   };
 
-  sendSurname(message: string) {
-    return { name: message };
+  sendSurname(name: string) {
+    return { hello: name };
   }
 
-  @Get("/salut")
-  surname = (res: ServerResponse) => {
-    //console.log(res);
-    ControllerAction.Send(res, this.sendSurname, "Cafazzo"); //`${this.req.url?.substring(this.req.url?.lastIndexOf("/") + 1)}`);
+  @Get("/salut/:id")
+  surname = ([...args]: any) => {
+		console.log(args);
+		let result:any;
+		switch(args[0]) {
+			case "Cafazzo":
+				result = "you!"
+				break;
+			case "McDavid":
+				result = "McDavid is not allowed here.";
+				break;
+			default:
+				result = args;
+		}
+
+		ControllerAction.Send(this.res, this.sendSurname, result);
   };
 
-  execute(methodName: string | symbol, res: ServerResponse) {
+  execute(methodName: string | symbol, ...args: any) {
     if (this.selector[methodName.toString()]) {
-      this.selector[methodName.toString()](res);
+      this.selector[methodName.toString()](args);
     }
   }
 
@@ -42,9 +60,3 @@ export default class SerialController implements IController {
     surname: this.surname,
   };
 }
-
-// export const serial = async (req: IncomingMessage, res: ServerResponse) => {
-//     ControllerAction.Send(res, sendSurname, "Cafazzo");
-// }
-
-// export default serial;

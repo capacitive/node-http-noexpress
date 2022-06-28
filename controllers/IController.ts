@@ -1,6 +1,4 @@
-import { ServerResponse } from "node:http";
-
 export interface IController {
-	execute(methodName: string | symbol, res: ServerResponse): void;
+	execute(methodName: string | symbol, ...args: any): void;
 	selector: { [K: string]: Function };
 }
