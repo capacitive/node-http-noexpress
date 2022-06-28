@@ -3,6 +3,14 @@ An introduction to the No Express HTTP server
 
 This is a thought-experiment to see how far I can get designing and building a full-fledged HTTP REST server without using Express or some other HTTP server library.  Currently, the design part had taken a back seat to quickly coding up an MVP.  With the advent of a working, tagged MVP commit, I've moved on to designing route caching and code generation for controllers.
 
+Install this package's dependencies:
+
+```npm install```
+
+Start the http server:
+
+```npm start``` _(nodemon will use ts-node to start in watch mode)_
+
 Some work to be done from the first iteration forward:
 
 - My best attempt at calculating Big O for the nested forEach in HTTPRouter is O(n^2) - not good!
