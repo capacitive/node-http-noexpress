@@ -19,7 +19,6 @@ export default class SerialController implements IController {
 
   @Get("/")
   index = () => {
-    //console.log(this.res);
     ControllerAction.Send(
       this.res,
       this.sendIndexInfo,
@@ -33,7 +32,6 @@ export default class SerialController implements IController {
 
   @Get("/salut/:id")
   surname = ([...args]: any) => {
-		console.log(args);
 		let result:any;
 		switch(args[0]) {
 			case "Cafazzo":

@@ -12,16 +12,11 @@ export class ControllerAction {
         const argsValue1 = [...args].join(',');
         const arr:Array<string> = argsValue1.split(',');
 
-        console.log(arr);
-        console.log("got here");
-
         if(arr.length > 1) {
           data = func.apply(null, args[0]);
         } else {
           data = func.apply(null, arr);
         }
-        
-        console.log("got here");
 
         res.writeHead(200, { "Content-Type": "application/json" });
         res.end(JSON.stringify(data));
