@@ -21,6 +21,7 @@
   "dependencies": {
     "async": "^3.2.4",
     "node": "^18.4.0",
+    "persistent-cache": "^1.1.2",
     "prettier": "^2.7.1",
     "reflect-metadata": "^0.1.13"
   }

@@ -1,16 +1,31 @@
 import { IncomingMessage, ServerResponse } from "http";
 import SerialController from "../controllers/serial-controller";
 import { RouteDefinition } from "./RouteDefinition";
+let cache = require("persistent-cache");
 
 class HTTPRouter {  
   static router(request: IncomingMessage, response: ServerResponse) {
-    [SerialController].forEach(controller => {
+    [SerialController].forEach(async controller => {
       const instance = new controller(response);
       const prefix = Reflect.getMetadata("prefix", controller);
-      const routes: Array<RouteDefinition> = Reflect.getMetadata(
-        "routes",
-        controller
-      );
+
+      let routes: Array<RouteDefinition> = new Array<RouteDefinition>();
+
+      const routesCache = cache();
+      let cached = routesCache.getSync("routes");
+
+      if (!cached) {
+        console.log("not in cache");
+        routes = Reflect.getMetadata(
+          "routes",
+          controller
+        );
+        routesCache.putSync("routes", routes);
+      } else {
+        routes = cached;
+      }
+
+      //routesCache.deleteSync("routes");
       //console.log(`routes: ${JSON.stringify(routes)}`);
 
       routes.forEach((route) => {
