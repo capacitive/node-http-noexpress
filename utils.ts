@@ -1,6 +1,6 @@
 import { IncomingMessage } from "http";
 
-function getRequestData(req: IncomingMessage) {
+function GetRequestData(req: IncomingMessage) {
   return new Promise((resolve, reject) => {
     try {
       let body = "";
@@ -19,4 +19,4 @@ function getRequestData(req: IncomingMessage) {
     }
   });
 }
-module.exports = { getRequestData };
+module.exports = { GetRequestData };

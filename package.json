@@ -4,7 +4,7 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "start": "nodemon server.ts",
+    "start": "nodemon --ignore cache/ server.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "pretty": "prettier --write \"./**/*.{js,ts,jsx,json}\""
   },
@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/async": "^3.2.14",
     "esm": "^3.2.25",
     "nodemon": "^2.0.18",
     "ts-node": "^10.8.1",
@@ -21,7 +22,6 @@
   "dependencies": {
     "async": "^3.2.4",
     "node": "^18.4.0",
-    "persistent-cache": "^1.1.2",
     "prettier": "^2.7.1",
     "reflect-metadata": "^0.1.13"
   }

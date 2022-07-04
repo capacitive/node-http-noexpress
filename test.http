@@ -1,3 +1,7 @@
 GET http://localhost:3031/serial/salut/:Cafazzo HTTP/1.1
 ###
 GET http://localhost:3031/serial HTTP/1.1
+###
+GET http://localhost:3031/parallel/multiverse/:Gorvaldus HTTP/1.1
+###
+GET http://localhost:3031/parallel HTTP/1.1

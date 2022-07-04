@@ -1,34 +1,24 @@
 import { IncomingMessage, ServerResponse } from "http";
+import ParallelController from "../controllers/parallel-controller";
 import SerialController from "../controllers/serial-controller";
 import { RouteDefinition } from "./RouteDefinition";
-let cache = require("persistent-cache");
 
 class HTTPRouter {  
   static router(request: IncomingMessage, response: ServerResponse) {
-    [SerialController].forEach(async controller => {
+    let routes: Array<RouteDefinition> = new Array<RouteDefinition>();
+
+    [SerialController, ParallelController].forEach(async controller => {
       const instance = new controller(response);
       const prefix = Reflect.getMetadata("prefix", controller);
 
-      let routes: Array<RouteDefinition>;
+      routes = Reflect.getMetadata(
+        "routes",
+        controller
+      );
 
-      const routesCache = cache();
-      let cached = routesCache.getSync("routes");
+      console.log(`routes: ${JSON.stringify(routes)}`);
 
-      if (!cached) {
-        console.log("not in cache");
-        routes = Reflect.getMetadata(
-          "routes",
-          controller
-        );
-        routesCache.putSync("routes", routes);
-      } else {
-        routes = cached;
-      }
-
-      //routesCache.deleteSync("routes");
-      //console.log(`routes: ${JSON.stringify(routes)}`);
-
-      routes.forEach((route) => {
+      routes.forEach(route => {
         const prefixedPath = `${prefix}${route.path}`;
         const lastIndex = request.url!.lastIndexOf(':') + 1;
 
